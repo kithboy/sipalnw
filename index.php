@@ -8,6 +8,9 @@
 </head><body>
 <?php
 echo "Hello Sipa Angel! We're เทพ";
+echo "โดนปล่อยตัว";
+echo "ทำแล้ว test drone"
+echo “เย่ เข้าได้แล้ว”
 ?>
 </body>
 </html>
