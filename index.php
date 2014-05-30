@@ -9,11 +9,7 @@
 <?php
 echo "Hello Sipa Angel! We're เทพ";
 echo "โดนปล่อยตัว";
-echo "ทำแล้ว test drone"
-echo “ยากจุงเบย”
-<<<<<<< HEAD
-=======
->>>>>>> 09c0c94316ce2708cac23bb10d5dc99037b0a82b
+echo "ทำแล้ว test drone";
 ?>
 </body>
 </html>
