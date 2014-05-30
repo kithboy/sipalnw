@@ -9,6 +9,7 @@
 <?php
 echo "Hello Sipa Angel! We're เทพ";
 echo "โดนปล่อยตัว";
+echo "ทำแล้ว test drone"
 ?>
 </body>
 </html>
