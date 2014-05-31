@@ -18,6 +18,8 @@ $memberId = 1;
  
  
 <?
+
+
 if(isset($_REQUEST['rid'])){
 	$rid = $_REQUEST['rid'];
 	$data = mysql_query("SELECT * FROM reporter WHERE reporterId = '".$rid."'");
@@ -49,8 +51,16 @@ if(isset($_REQUEST['rid'])){
             </div>
 <?
 }
+
+if($page='ranking'){
 	//no view
 
+?>
+
+
+
+<?
+}
 ?>
             <div data-role="collapsible" data-theme="a" data-content-theme="a" data-collapsed="false"<? /*if($showlist) echo('data-collapsed="false"');*/ ?>>
                 <h4>List จ้า</h4>
@@ -60,7 +70,7 @@ if(isset($_REQUEST['rid'])){
 	$data = mysql_query("SELECT * FROM reporter");
 			while($row = mysql_fetch_array($data)){
 ?>
-                    <li><a href="?rid=<?=$row['reporterId']?>"><?=$row['firstName']." ".$row['lastName']?></a></li>
+                    <li><a href="index.php?page=list&rid=<?=$row['reporterId']?>"><?=$row['firstName']." ".$row['lastName']?></a></li>
 
 <?	}	?>
                 </ul>
