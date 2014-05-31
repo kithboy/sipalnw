@@ -3,8 +3,8 @@
 $servername='localhost';
 
 // username and password to log onto db server
-$dbusername='root';
-$dbpassword='';
+$dbusername='sipalnw';
+$dbpassword='sipalnw';
 
 // name of database
 $dbname='sipalnw';
