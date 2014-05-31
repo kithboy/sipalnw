@@ -78,7 +78,21 @@ if($page='ranking'){
 
 ?>
 
-
+                <div data-role="collapsible" data-collapsed="false">
+					<h4>Ranking พากษ์เทพๆ</h4>
+                    <ul data-role="listview" data-inset="true">
+	<?
+        $data = mysql_query("SELECT sum(score), r.nickname,r.reporterId FROM reporter r
+left join membervotereporter mv on r.reporterId = mv.reporterId
+group by r.reporterId
+");
+                while($row = mysql_fetch_array($data)){
+    ?>
+                        <li><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?></li>
+    
+    <?	}	?>
+                    </ul>
+                </div>
 
 <?
 }
@@ -99,9 +113,9 @@ if($page='ranking'){
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" >
                 <ul>
-                    <li><a href="index.php" data-icon="lock">รายชื่อจ้า</a></li>
-                    <li><a href="#ranking.php" data-icon="lock">ลำดับอ้ะ</a></li>
-                    <li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li>
+                    <li><a href="index.php?page=list" data-icon="lock">รายชื่อจ้า</a></li>
+                    <li><a href="index.php?page=rank" data-icon="lock">ลำดับอ้ะ</a></li>
+                    <!--li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li-->
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->
