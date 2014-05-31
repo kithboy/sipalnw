@@ -88,7 +88,7 @@ group by r.reporterId
 ");
                 while($row = mysql_fetch_array($data)){
     ?>
-                        <li><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?></li>
+                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?></a></li>
     
     <?	}	?>
                     </ul>
