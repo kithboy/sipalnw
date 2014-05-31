@@ -18,7 +18,7 @@ $memberId = 1;
  
  
 <?
-
+$page = $_REQUEST['page'];
 
 if(isset($_REQUEST['rid'])){
 	$rid = $_REQUEST['rid'];
@@ -74,7 +74,7 @@ if(isset($_REQUEST['rid'])){
 <?
 }
 
-if($page='ranking'){
+if($page=='rank'){
 	//no view
 
 ?>
@@ -83,13 +83,13 @@ if($page='ranking'){
 					<h4>Ranking พากษ์เทพๆ</h4>
                     <ul data-role="listview" data-inset="true">
 	<?
-        $data = mysql_query("SELECT sum(score), r.nickname,r.reporterId FROM reporter r
+        $data = mysql_query("SELECT sum(score) ss, r.nickname,r.reporterId FROM reporter r
 left join membervotereporter mv on r.reporterId = mv.reporterId
 group by r.reporterId
 ");
                 while($row = mysql_fetch_array($data)){
     ?>
-                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?></a></li>
+                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?> (<?=$row['ss']?>)</a></li>
     
     <?	}	?>
                     </ul>
@@ -97,6 +97,8 @@ group by r.reporterId
 
 <?
 }
+if($page=='' || $page=='list'){
+
 ?>
             <div data-role="collapsible" data-theme="a" data-content-theme="a" data-collapsed="false"<? /*if($showlist) echo('data-collapsed="false"');*/ ?>>
                 <h4>List จ้า</h4>
@@ -108,14 +110,18 @@ group by r.reporterId
 ?>
                     <li><a href="index.php?page=list&rid=<?=$row['reporterId']?>"><?=$row['firstName']." ".$row['lastName']?></a></li>
 
-<?	}	?>
+<?	}
+	?>
                 </ul>
             </div>
+<? } ?>
+            
+            
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" >
                 <ul>
-                    <li><a href="index.php?page=list" data-icon="lock">รายชื่อจ้า</a></li>
-                    <li><a href="index.php?page=rank" data-icon="lock">ลำดับอ้ะ</a></li>
+                    <li><a href="index.php?page=list" data-icon="bullets">รายชื่อจ้า</a></li>
+                    <li><a href="index.php?page=rank" data-icon="user">ลำดับอ้ะ</a></li>
                     <!--li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li-->
                 </ul>
             </div><!-- /navbar -->
