@@ -6,10 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head><body>
-<?php
-echo "Hello Sipa Angel! We're เทพ";
-echo "โดนปล่อยตัว";
-echo "ทำแล้ว test drone";
-?>
+<? echo "เทพ มากมาก มั๊ย"; ?>
+<img src="fangy.jpg" />
 </body>
 </html>
