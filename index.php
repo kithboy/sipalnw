@@ -51,6 +51,7 @@ if(isset($_REQUEST['rid'])){
                 	<form action="comment.php" method="post">
 
                         จะบอกไรจ้ะ<br>
+                        <input type="hidden" name="rid" id="rid" value="<?=$rid?>">
                         <textarea id="membercomment" name="membercomment"></textarea>
                         <input type="submit" data-role="button" name="submit" id="submit" data-theme="b" value="ส่งเบย">
                     </form>
