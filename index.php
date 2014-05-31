@@ -46,7 +46,28 @@ if(isset($_REQUEST['rid'])){
                     <a href="vote.php?rid=<?=$row['reporterId']?>&score=2" data-role="button" data-inline="true" data-theme="b">ช๊อบชอบ</a>
                     <a href="vote.php?rid=<?=$row['reporterId']?>&score=1" data-role="button" data-inline="true" data-theme="a">เฉ๊ยเฉย</a>
                     <a href="vote.php?rid=<?=$row['reporterId']?>&score=-1" data-role="button" data-inline="true" data-theme="a">ไม่ชอบเบย</a>
+
+<br><br>
+                	<form action="comment.php" method="post">
+
+                        จะบอกไรจ้ะ<br>
+                        <textarea id="membercomment" name="membercomment"></textarea>
+                        <input type="submit" data-role="button" name="submit" id="submit" data-theme="b" value="ส่งเบย">
+                    </form>
+<br><br>
+                <div data-role="collapsible" data-collapsed="false">
+					<h4>Comment เพียบเรย</h4>
+                    <ul data-role="listview" data-inset="true">
+	<?
+        $data = mysql_query("SELECT * FROM comment WHERE reporterId = '".$rid."'");
+                while($row = mysql_fetch_array($data)){
+    ?>
+                        <li><?=$row['detail']?></li>
+    
+    <?	}	?>
+                    </ul>
                 </div>
+                
                 
             </div>
 <?
