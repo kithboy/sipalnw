@@ -91,13 +91,34 @@ if($page=='rank'){
 					<h4>Ranking พากษ์เทพๆ</h4>
                     <ul data-role="listview" data-inset="true">
 	<?
-        $data = mysql_query("SELECT sum(score) ss, r.nickname,r.reporterId FROM reporter r
-left join membervotereporter mv on r.reporterId = mv.reporterId
-group by r.reporterId
+        $data = mysql_query("SELECT reporter.reporterId, reporter.firstName, reporter.lastName, reporter.nickName, COALESCE( SUM( membervotereporter.score ) , 0 ) ss,
+SUM(CASE 
+             WHEN  membervotereporter.score = 1  THEN 1
+             ELSE 0
+           END) AS vote1, 
+SUM(CASE 
+             WHEN  membervotereporter.score = 2  THEN 1
+             ELSE 0
+           END) AS vote2, 
+SUM(CASE 
+             WHEN  membervotereporter.score = -1  THEN 1
+             ELSE 0
+           END) AS voteMinus1 
+FROM reporter
+LEFT JOIN membervotereporter ON reporter.reporterid = membervotereporter.reporterid
+GROUP BY reporter.firstName
+ORDER BY SUM( membervotereporter.score ) DESC;
 ");
                 while($row = mysql_fetch_array($data)){
     ?>
-                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?> (<?=$row['ss']?>)</a></li>
+                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickName']?> (<?=$row['ss']?>)</a>
+                        	<div>
+                            	<div style="height:8px; background:#06C; width:<?=($row['vote1']*100/$row['ss'])?>%">&nbsp;</div>
+                            	<div style="height:8px; background:#CC0; width:<?=($row['vote2']*100/$row['ss'])?>%">&nbsp;</div>
+                            	<div style="height:8px; background:#F00; width:<?=($row['voteMinus1']*100/$row['ss'])?>%">&nbsp;</div>
+                            
+                            </div>
+                        </li>
     
     <?	}	?>
                     </ul>
