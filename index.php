@@ -97,6 +97,8 @@ group by r.reporterId
 
 <?
 }
+if($page=='' || $page=='list'){
+
 ?>
             <div data-role="collapsible" data-theme="a" data-content-theme="a" data-collapsed="false"<? /*if($showlist) echo('data-collapsed="false"');*/ ?>>
                 <h4>List จ้า</h4>
@@ -108,9 +110,13 @@ group by r.reporterId
 ?>
                     <li><a href="index.php?page=list&rid=<?=$row['reporterId']?>"><?=$row['firstName']." ".$row['lastName']?></a></li>
 
-<?	}	?>
+<?	}
+	?>
                 </ul>
             </div>
+<? } ?>
+            
+            
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" >
                 <ul>
