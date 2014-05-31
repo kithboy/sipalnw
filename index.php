@@ -34,6 +34,14 @@ if(isset($_REQUEST['rid'])){
         </div><!-- /header -->
  
         <div data-role="content">
+        
+        	<? if($page=='home'){ ?>
+            
+            	<div style="margin:0"><img src="boximages/football.jpg" style="width:100%"></div>
+            
+            <? } ?>
+        
+        
 	        <div data-role="fieldcontain">
 
             	<div data-role="collapsible" data-collapsed="false">
@@ -97,7 +105,7 @@ group by r.reporterId
 
 <?
 }
-if($page=='' || $page=='list'){
+if($page=='' || $page=='list' || $page=='home'){
 
 ?>
             <div data-role="collapsible" data-theme="a" data-content-theme="a" data-collapsed="false"<? /*if($showlist) echo('data-collapsed="false"');*/ ?>>
@@ -120,6 +128,7 @@ if($page=='' || $page=='list'){
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" >
                 <ul>
+                    <li><a href="index.php?page=home" data-icon="home">บ้านเก๊าเอง</a></li>
                     <li><a href="index.php?page=list" data-icon="bullets">รายชื่อจ้า</a></li>
                     <li><a href="index.php?page=rank" data-icon="user">ลำดับอ้ะ</a></li>
                     <!--li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li-->
