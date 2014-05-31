@@ -120,8 +120,8 @@ if($page=='' || $page=='list'){
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" >
                 <ul>
-                    <li><a href="index.php?page=list" data-icon="lock">รายชื่อจ้า</a></li>
-                    <li><a href="index.php?page=rank" data-icon="lock">ลำดับอ้ะ</a></li>
+                    <li><a href="index.php?page=list" data-icon="bullets">รายชื่อจ้า</a></li>
+                    <li><a href="index.php?page=rank" data-icon="user">ลำดับอ้ะ</a></li>
                     <!--li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li-->
                 </ul>
             </div><!-- /navbar -->
