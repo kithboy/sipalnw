@@ -1,4 +1,6 @@
-<? include("inc/dbcns.php"); ?>
+<? include("inc/dbcns.php");
+$memberId = 1;
+?>
 <!doctype html>
 <html>
 <head>
@@ -14,6 +16,17 @@
 <body>
     <div data-role="page">
  
+ 
+<?
+
+
+if(isset($_REQUEST['rid'])){
+	$rid = $_REQUEST['rid'];
+	$data = mysql_query("SELECT * FROM reporter WHERE reporterId = '".$rid."'");
+	$row = mysql_fetch_array($data);
+
+?>
+
         <div data-role="header">
             <h1>Soccer Duck</h1>
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext">Back</a>
@@ -24,85 +37,92 @@
 	        <div data-role="fieldcontain">
 
             	<div data-role="collapsible" data-collapsed="false">
-                    <h4>เอกราช เก่งทุกทาง</h4>
+                    <h4><?=$row['firstname']." ".$row['lastname']?></h4>
                     <div style="text-align:center;">
-                        <img src="boximages/1.jpg" style="width:100%; max-width:320px;">
+                        <img src="boximages/<?=$row['reporterId']?>.jpg" style="width:100%; max-width:320px;">
                     </div>
-                    <p>พากษ์ดีเป็นกลาง เนื้อหาแน่นมาก
-Name : เอกราช เก่งทุกทาง 
-Age : 40 ปี 
-Education : ปริญญาตรี สังคมศาสตร์ จากมหาวิทยาลัยเกษตรศาสตร์ 
-Career Highlights 
-- ปัจจุบัน นักพากย์ฟุตบอล 
-- พิธีกรรายการ “เรื่องเล่าเช้านี้” 
-- ที่ปรึกษานิตยสาร FHM 
-- อดีต บรรณาธิการนิตยสาร GM 
-- คอลัมนิตส์ในหนังสือพิมพ์มติชน รายวัน ประชาชาติธุรกิจ 
-- ผู้สื่อข่าวหนังสือพิมพ์สยามกีฬารายวัน  </p>
-                    <a href="#vote" data-role="button" data-inline="true" data-theme="b">ช๊อบชอบ</a>
-                    <a href="#unvote" data-role="button" data-inline="true" data-theme="a">เฉ๊ยเฉย</a>
-                    <a href="#unvote" data-role="button" data-inline="true" data-theme="a">ไม่ชอบเบย</a>
+                    <h4><?=$row['nickName']?></h4>
+                    <p><?=$row['reporterDetail']?></p>
+                    <a href="vote.php?rid=<?=$row['reporterId']?>&score=2" data-role="button" data-inline="true" data-theme="b">ช๊อบชอบ</a>
+                    <a href="vote.php?rid=<?=$row['reporterId']?>&score=1" data-role="button" data-inline="true" data-theme="a">เฉ๊ยเฉย</a>
+                    <a href="vote.php?rid=<?=$row['reporterId']?>&score=-1" data-role="button" data-inline="true" data-theme="a">ไม่ชอบเบย</a>
+
+<br><br>
+                	<form action="comment.php" method="post">
+
+                        จะบอกไรจ้ะ<br>
+                        <input type="hidden" name="rid" id="rid" value="<?=$rid?>">
+                        <textarea id="membercomment" name="membercomment"></textarea>
+                        <input type="submit" data-role="button" name="submit" id="submit" data-theme="b" value="ส่งเบย">
+                    </form>
+<br><br>
+                <div data-role="collapsible" data-collapsed="false">
+					<h4>Comment เพียบเรย</h4>
+                    <ul data-role="listview" data-inset="true">
+	<?
+        $data = mysql_query("SELECT * FROM comment WHERE reporterId = '".$rid."'");
+                while($row = mysql_fetch_array($data)){
+    ?>
+                        <li><?=$row['detail']?></li>
+    
+    <?	}	?>
+                    </ul>
                 </div>
                 
+                
             </div>
-            
+<?
+}
+
+if($page='ranking'){
+	//no view
+
+?>
+
+                <div data-role="collapsible" data-collapsed="false">
+					<h4>Ranking พากษ์เทพๆ</h4>
+                    <ul data-role="listview" data-inset="true">
+	<?
+        $data = mysql_query("SELECT sum(score), r.nickname,r.reporterId FROM reporter r
+left join membervotereporter mv on r.reporterId = mv.reporterId
+group by r.reporterId
+");
+                while($row = mysql_fetch_array($data)){
+    ?>
+                        <li><a href="index.php?rid=<?=$row['reporterId']?>"><img src="boximages/<?=$row['reporterId']?>.jpg"><br><?=$row['nickname']?></a></li>
+    
+    <?	}	?>
+                    </ul>
+                </div>
+
+<?
+}
+?>
             <div data-role="collapsible" data-theme="a" data-content-theme="a" data-collapsed="false"<? /*if($showlist) echo('data-collapsed="false"');*/ ?>>
                 <h4>List จ้า</h4>
                 <ul data-role="listview" data-inset="true" data-filter="true">
 
 <?
-			//while($row = mysql_fetch_array($data)){
+	$data = mysql_query("SELECT * FROM reporter");
+			while($row = mysql_fetch_array($data)){
 ?>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-                    <li><a href="?id=xxx">เอกราช เก่งทุกทาง</a></li>
-                    <li><a href="?id=xxx">วีระศักดิ์ นิลกลัด</a></li>
-                    <li><a href="?id=xxx">อดิศร พึ่งยา</a></li>
-                    <li><a href="?id=xxx">สาธิต กรีกุล</a></li>
-                    <li><a href="?id=xxx">อิสรพงษ์ ผลมั่ง</a></li>
-<?	//}	?>
+                    <li><a href="index.php?page=list&rid=<?=$row['reporterId']?>"><?=$row['firstName']." ".$row['lastName']?></a></li>
+
+<?	}	?>
                 </ul>
             </div>
-            
-        </div><!-- /content -->
- 
-        <div data-role="footer">
-			<h4>2014 &copy;Sipa lnw mak</h4>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" >
+                <ul>
+                    <li><a href="index.php?page=list" data-icon="lock">รายชื่อจ้า</a></li>
+                    <li><a href="index.php?page=rank" data-icon="lock">ลำดับอ้ะ</a></li>
+                    <!--li><a href="#team.php" data-icon="lock">รายชื่อทีมเทพๆ</a></li-->
+                </ul>
+            </div><!-- /navbar -->
         </div><!-- /footer -->
- 
+                        
+        </div><!-- /content -->
+  
     </div><!-- /page -->
 </body>
 </html>
