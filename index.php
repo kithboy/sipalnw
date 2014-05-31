@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head><body>
-<? echo "เทพ มาก"; ?>
+<? echo "เทพ มากมาก"; ?>
 <img src="fangy.jpg" />
 </body>
 </html>
